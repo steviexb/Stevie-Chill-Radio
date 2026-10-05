@@ -89,11 +89,20 @@ function onPlayerReady() {
 function onPlayerStateChange(event) {
 
     if (event.data === YT.PlayerState.ENDED) {
+        updateEqualizer(false);
         nextSong();
     }
 
     if (event.data === YT.PlayerState.PLAYING) {
         updateTrackInfo();
+        updateEqualizer(true);
+    }
+
+    if (
+        event.data === YT.PlayerState.PAUSED ||
+        event.data === YT.PlayerState.CUED
+    ) {
+        updateEqualizer(false);
     }
 }
 
@@ -166,3 +175,47 @@ document
 document
     .getElementById("previous-button")
     .addEventListener("click", previousSong);
+// ------------------------------------------
+// LIVE STATION CLOCK
+// ------------------------------------------
+
+function updateClock() {
+
+    const now = new Date();
+
+    const time = now.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
+    const clock = document.getElementById("station-clock");
+
+    if (clock) {
+        clock.textContent = time;
+    }
+}
+
+updateClock();
+
+setInterval(updateClock, 1000);
+
+
+// ------------------------------------------
+// EQUALIZER STATUS
+// ------------------------------------------
+
+function updateEqualizer(isPlaying) {
+
+    const equalizer =
+        document.getElementById("equalizer");
+
+    if (!equalizer) {
+        return;
+    }
+
+    if (isPlaying) {
+        equalizer.classList.add("playing");
+    } else {
+        equalizer.classList.remove("playing");
+    }
+}
