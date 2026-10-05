@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Stevie's Chill Radio</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Stevie's Chill Radio</h1>
+    <p>Work, Game, or Think to Some Chill Tunes</p>
+  </header>
+
+  <main>
+
+    <section class="radio-player">
+
+      <div class="on-air">
+        ● ON AIR
+      </div>
+
+      <h2>Now Playing</h2>
+
+      <!-- YouTube player will appear here -->
+      <div id="player"></div>
+
+      <div class="track-info">
+        <h3 id="track-title">Loading the station...</h3>
+        <p id="track-artist">Stevie's Chill Radio</p>
+      </div>
+
+      <div class="controls">
+        <button id="previous-button">⏮ Previous</button>
+        <button id="next-button">Next ⏭</button>
+      </div>
+
+    </section>
+
+    <section class="station-info">
+      <h2>Welcome to Stevie's Chill Radio</h2>
+
+      <p>
+        A hand-picked collection of chill music for working,
+        gaming, thinking, reading, creating, or just hanging out.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Stevie's Chill Radio • Broadcasting from somewhere chill</p>
+  </footer>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
