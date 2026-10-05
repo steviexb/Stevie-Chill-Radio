@@ -4,56 +4,135 @@
 
 
 // ==========================================
-// PLAYLIST
+// MUSIC LIBRARY
 //
-// ADD NEW SONGS HERE.
-// Just paste the full YouTube URL.
+// THIS IS THE PART YOU EDIT.
+//
+// Add songs using:
+//
+// {
+//     title: "Song Title",
+//     artist: "Artist / Game / Soundtrack",
+//     url: "FULL YOUTUBE URL"
+// },
+//
 // ==========================================
 
 const songs = [
-    "https://www.youtube.com/watch?v=g3OJh7CytKw",
-    "https://www.youtube.com/watch?v=wf9pmAg8UVQ",
-    "https://www.youtube.com/watch?v=EmFsRw6zGi0",
-    "https://www.youtube.com/watch?v=a4PFFoudmho",
-    "https://www.youtube.com/watch?v=WXFiAypd_wY",
-    "https://www.youtube.com/watch?v=pcJ-iFIIHOQ",
-    "https://www.youtube.com/watch?v=nXchQdoDAaQ",
-    "https://www.youtube.com/watch?v=8mfOSTcTQNs",
-    "https://www.youtube.com/watch?v=k6mA_Yii7pw",
-    "https://www.youtube.com/watch?v=fbHzUWTkmpE"
+
+    {
+        title: "Ritchie (Together Forever)",
+        artist: "Pokémon Puzzle League",
+        url: "https://www.youtube.com/watch?v=g3OJh7CytKw"
+    },
+
+    {
+        title: "Morning Dew",
+        artist: "Dragon Ball Z Budokai Tenkaichi 2",
+        url: "https://www.youtube.com/watch?v=wf9pmAg8UVQ"
+    },
+
+    {
+        title: "Museum",
+        artist: "Sonic Mega Collection",
+        url: "https://www.youtube.com/watch?v=EmFsRw6zGi0"
+    },
+
+    {
+        title: "Manuals",
+        artist: "Sonic Gems Collection",
+        url: "https://www.youtube.com/watch?v=a4PFFoudmho"
+    },
+
+    {
+        title: "Nostalgic Days - Two Days Ago Animal Crossing Remix",
+        artist: "Ballad of Battle",
+        url: "https://www.youtube.com/watch?v=WXFiAypd_wY"
+    },
+
+    {
+        title: "Road Taken (Calm)",
+        artist: "Fire Emblem Fates",
+        url: "https://www.youtube.com/watch?v=pcJ-iFIIHOQ"
+    },
+
+    {
+        title: "White Wafers 6",
+        artist: "Kirby's Return to Dream Land",
+        url: "https://www.youtube.com/watch?v=nXchQdoDAaQ"
+    },
+
+    {
+        title: "His World Lofi Mix",
+        artist: "Sonic The Hedgehog '06",
+        url: "https://www.youtube.com/watch?v=8mfOSTcTQNs"
+    },
+
+    {
+        title: "Route 216 Remix",
+        artist: "Pokémon Diamond & Pearl",
+        url: "https://www.youtube.com/watch?v=k6mA_Yii7pw"
+    },
+
+    {
+        title: "Evening Star",
+        artist: "Knuckles Chaotix",
+        url: "https://www.youtube.com/watch?v=fbHzUWTkmpE"
+    }
+
 ];
 
 
 // ==========================================
 // STEVIE'S NOTES
-//
-// We'll replace these with your actual
-// station messages later.
 // ==========================================
 
 const stationNotes = [
+
     "It's not over. We're just getting started.",
+
     "Whatever you manage to get done today is enough.",
+
     "I promise I won't give up if you don't.",
+
     "Let's slow down a bit. You've got this.",
+
     "Don't forget to check in with your breathing.",
+
     "Mindfulness exercise: Check your surroundings. Name 5 things you can see.",
+
     "You're not going in circles. You're learning something new every time.",
+
     "Lock in. Or don't. Whichever you need right now.",
+
     "Nothing really matters, and that's the beauty of it.",
+
     "\"My journey only ends when I stop running.\" — Sonic",
+
     "You deserve to see how far you can go.",
+
     "Our minds tell us anxious lies. Everything will be okay.",
+
     "Become more you every day.",
+
     "Being brave doesn't mean I'm not scared; it just means I won't stop.",
+
     "When the rain starts pouring down, let it wash your soul anew."
+
 ];
 
 
 // ==========================================
-// DON'T REALLY NEED TO TOUCH STUFF BELOW HERE
+// RADIO MACHINERY
+//
+// You generally don't need to edit anything
+// below this point.
 // ==========================================
 
+
+// ------------------------------------------
+// YOUTUBE ID
+// ------------------------------------------
 
 function getYouTubeID(url) {
 
@@ -65,9 +144,19 @@ function getYouTubeID(url) {
 }
 
 
-const playlist = songs
-    .map(getYouTubeID)
-    .filter(Boolean);
+// Build usable library.
+
+const library = songs
+    .map((song, index) => {
+
+        return {
+            ...song,
+            id: getYouTubeID(song.url),
+            libraryIndex: index
+        };
+
+    })
+    .filter(song => song.id);
 
 
 // ------------------------------------------
@@ -76,7 +165,7 @@ const playlist = songs
 
 let player;
 
-let currentVideoId = null;
+let currentSong = null;
 
 let shuffleQueue = [];
 
@@ -91,7 +180,6 @@ let lastNoteIndex = -1;
 
 // ------------------------------------------
 // SHUFFLE
-// Fisher-Yates shuffle
 // ------------------------------------------
 
 function shuffleArray(array) {
@@ -113,20 +201,19 @@ function shuffleArray(array) {
 
 
 // ------------------------------------------
-// BUILD A NEW SHUFFLE QUEUE
+// REFILL SHUFFLE QUEUE
 // ------------------------------------------
 
 function refillShuffleQueue() {
 
-    shuffleQueue = shuffleArray(playlist);
-
-    // Prevent the first song of the new cycle
-    // from being the song currently playing.
+    shuffleQueue = shuffleArray(library);
 
     if (
         shuffleQueue.length > 1 &&
-        shuffleQueue[0] === currentVideoId
+        currentSong &&
+        shuffleQueue[0].id === currentSong.id
     ) {
+
         [shuffleQueue[0], shuffleQueue[1]] =
             [shuffleQueue[1], shuffleQueue[0]];
     }
@@ -155,27 +242,34 @@ function onYouTubeIframeAPIReady() {
 
     refillShuffleQueue();
 
-    currentVideoId = getNextRandomSong();
+    currentSong = getNextRandomSong();
 
-    history.push(currentVideoId);
+    history.push(currentSong);
 
     historyPosition = 0;
+
 
     player = new YT.Player("player", {
 
         height: "390",
+
         width: "640",
 
-        videoId: currentVideoId,
+        videoId: currentSong.id,
 
         playerVars: {
+
             autoplay: 0,
+
             controls: 1,
+
             rel: 0
         },
 
         events: {
+
             onReady: onPlayerReady,
+
             onStateChange: onPlayerStateChange
         }
     });
@@ -193,6 +287,8 @@ function onPlayerReady() {
     updateTrackCounter();
 
     changeStationNote();
+
+    renderRecentlyPlayed();
 }
 
 
@@ -209,12 +305,14 @@ function onPlayerStateChange(event) {
         nextSong();
     }
 
+
     if (event.data === YT.PlayerState.PLAYING) {
 
         updateTrackInfo();
 
         updateEqualizer(true);
     }
+
 
     if (
         event.data === YT.PlayerState.PAUSED ||
@@ -232,34 +330,23 @@ function onPlayerStateChange(event) {
 
 function saveCurrentToRecentlyPlayed() {
 
-    if (!player || !player.getVideoData) {
+    if (!currentSong) {
         return;
     }
 
-    const data = player.getVideoData();
-
-    if (!data || !data.title) {
-        return;
-    }
-
-    // Avoid adding the same track twice in a row.
 
     if (
         recentlyPlayed.length === 0 ||
-        recentlyPlayed[0].videoId !== currentVideoId
+        recentlyPlayed[0].id !== currentSong.id
     ) {
 
-        recentlyPlayed.unshift({
-            videoId: currentVideoId,
-            title: data.title,
-            artist: data.author || "YouTube"
-        });
+        recentlyPlayed.unshift(currentSong);
     }
 
-    // Only remember the last three.
 
     recentlyPlayed =
         recentlyPlayed.slice(0, 3);
+
 
     renderRecentlyPlayed();
 }
@@ -274,29 +361,31 @@ function nextSong() {
     saveCurrentToRecentlyPlayed();
 
 
-    // If the listener previously hit Previous,
-    // Next moves forward through that history first.
-
     if (historyPosition < history.length - 1) {
 
         historyPosition++;
 
-        currentVideoId =
+        currentSong =
             history[historyPosition];
 
     } else {
 
-        currentVideoId =
+        currentSong =
             getNextRandomSong();
 
-        history.push(currentVideoId);
+        history.push(currentSong);
 
         historyPosition =
             history.length - 1;
     }
 
 
-    player.loadVideoById(currentVideoId);
+    player.loadVideoById(
+        currentSong.id
+    );
+
+
+    updateTrackInfo();
 
     updateTrackCounter();
 
@@ -314,14 +403,22 @@ function previousSong() {
         return;
     }
 
+
     saveCurrentToRecentlyPlayed();
+
 
     historyPosition--;
 
-    currentVideoId =
+    currentSong =
         history[historyPosition];
 
-    player.loadVideoById(currentVideoId);
+
+    player.loadVideoById(
+        currentSong.id
+    );
+
+
+    updateTrackInfo();
 
     updateTrackCounter();
 
@@ -330,33 +427,26 @@ function previousSong() {
 
 
 // ------------------------------------------
-// UPDATE NOW PLAYING
+// CUSTOM NOW PLAYING INFORMATION
 // ------------------------------------------
 
 function updateTrackInfo() {
 
-    if (!player || !player.getVideoData) {
+    if (!currentSong) {
         return;
     }
 
-    const videoData =
-        player.getVideoData();
-
-    const title =
-        videoData.title ||
-        "Stevie's Chill Radio";
-
-    const artist =
-        videoData.author ||
-        "YouTube";
 
     document
         .getElementById("track-title")
-        .textContent = title;
+        .textContent =
+        currentSong.title;
+
 
     document
         .getElementById("track-artist")
-        .textContent = artist;
+        .textContent =
+        currentSong.artist;
 }
 
 
@@ -367,17 +457,22 @@ function updateTrackInfo() {
 function updateTrackCounter() {
 
     const counter =
-        document.getElementById("track-counter");
+        document.getElementById(
+            "track-counter"
+        );
 
-    if (!counter) {
+
+    if (!counter || !currentSong) {
         return;
     }
 
+
     const songNumber =
-        playlist.indexOf(currentVideoId) + 1;
+        currentSong.libraryIndex + 1;
+
 
     counter.textContent =
-        `TRACK ${String(songNumber).padStart(2, "0")} / ${String(playlist.length).padStart(2, "0")}`;
+        `TRACK ${String(songNumber).padStart(2, "0")} / ${String(library.length).padStart(2, "0")}`;
 }
 
 
@@ -388,7 +483,10 @@ function updateTrackCounter() {
 function renderRecentlyPlayed() {
 
     const container =
-        document.getElementById("recent-tracks");
+        document.getElementById(
+            "recent-tracks"
+        );
+
 
     if (!container) {
         return;
@@ -406,11 +504,11 @@ function renderRecentlyPlayed() {
 
     container.innerHTML =
         recentlyPlayed
-            .map(track => {
+            .map(song => {
 
                 return `
                     <span class="recent-track">
-                        ${escapeHTML(track.title)}
+                        ${escapeHTML(song.title)}
                     </span>
                 `;
 
@@ -422,7 +520,7 @@ function renderRecentlyPlayed() {
 
 
 // ------------------------------------------
-// BASIC HTML SAFETY
+// HTML SAFETY
 // ------------------------------------------
 
 function escapeHTML(text) {
@@ -437,13 +535,16 @@ function escapeHTML(text) {
 
 
 // ------------------------------------------
-// ROTATING STATION NOTES
+// ROTATING STEVIE'S NOTES
 // ------------------------------------------
 
 function changeStationNote() {
 
     const message =
-        document.querySelector(".message-text");
+        document.querySelector(
+            ".message-text"
+        );
+
 
     if (
         !message ||
@@ -478,6 +579,7 @@ function changeStationNote() {
 
     lastNoteIndex = newIndex;
 
+
     message.textContent =
         stationNotes[newIndex];
 }
@@ -494,6 +596,7 @@ document
         nextSong
     );
 
+
 document
     .getElementById("previous-button")
     .addEventListener(
@@ -503,31 +606,40 @@ document
 
 
 // ------------------------------------------
-// LIVE STATION CLOCK
+// LIVE CLOCK
 // ------------------------------------------
 
 function updateClock() {
 
-    const now = new Date();
+    const now =
+        new Date();
+
 
     const time =
         now.toLocaleTimeString([], {
+
             hour: "2-digit",
+
             minute: "2-digit"
         });
+
 
     const clock =
         document.getElementById(
             "station-clock"
         );
 
+
     if (clock) {
-        clock.textContent = time;
+
+        clock.textContent =
+            time;
     }
 }
 
 
 updateClock();
+
 
 setInterval(
     updateClock,
@@ -545,6 +657,7 @@ function updateEqualizer(isPlaying) {
         document.getElementById(
             "equalizer"
         );
+
 
     if (!equalizer) {
         return;
