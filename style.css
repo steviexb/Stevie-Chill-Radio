@@ -658,3 +658,117 @@ footer span {
     }
 
 }
+/* =========================================
+   RECENTLY PLAYED — FINAL OVERRIDE
+   ========================================= */
+
+.radio-shell .recently-played {
+    width: 100%;
+    min-height: 58px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 22px;
+
+    padding: 17px 28px;
+
+    border-top: 1px solid rgba(255,255,255,.09);
+
+    background: rgba(0,0,0,.16);
+
+    overflow: hidden;
+}
+
+.radio-shell .recent-label {
+    margin: 0;
+
+    flex: 0 0 auto;
+
+    color: #64748b;
+
+    font-family: monospace;
+
+    font-size: .6rem;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    white-space: nowrap;
+}
+
+.radio-shell #recent-tracks {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 12px;
+
+    color: #8292a8;
+
+    font-family: "Trebuchet MS", Arial, sans-serif;
+
+    font-size: .72rem;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+}
+
+.radio-shell .recent-track {
+    display: inline-block;
+
+    max-width: 260px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+.radio-shell .recent-divider {
+    flex: 0 0 auto;
+
+    color: #3f5066;
+}
+
+
+/* PHONE */
+
+@media (max-width: 600px) {
+
+    .radio-shell .recently-played {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 8px;
+
+        padding: 17px 22px;
+    }
+
+    .radio-shell #recent-tracks {
+        display: block;
+
+        white-space: normal;
+
+        line-height: 1.7;
+    }
+
+    .radio-shell .recent-track {
+        display: block;
+
+        max-width: none;
+
+        white-space: normal;
+    }
+
+    .radio-shell .recent-divider {
+        display: none;
+    }
+
+}
