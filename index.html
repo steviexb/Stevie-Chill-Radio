@@ -1,63 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Stevie's Chill Radio</title>
+    <title>Stevie's Chill Radio</title>
 
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <header>
-    <h1>Stevie's Chill Radio</h1>
-    <p>Work, Game, or Think to Some Chill Tunes</p>
-  </header>
+    <div class="ambient-glow"></div>
 
-  <main>
+    <header class="station-header">
 
-    <section class="radio-player">
+        <div class="station-status">
+            <span class="live-dot"></span>
+            LIVE
+        </div>
 
-      <div class="on-air">
-        ● ON AIR
-      </div>
+        <h1>Stevie's Chill Radio</h1>
 
-      <h2>Now Playing</h2>
+        <p class="tagline">
+            Work, Game, or Think to Some Chill Tunes
+        </p>
 
-      <!-- YouTube player will appear here -->
-      <div id="player"></div>
+    </header>
 
-      <div class="track-info">
-        <h3 id="track-title">Loading the station...</h3>
-        <p id="track-artist">Stevie's Chill Radio</p>
-      </div>
 
-      <div class="controls">
-        <button id="previous-button">⏮ Previous</button>
-        <button id="next-button">Next ⏭</button>
-      </div>
+    <main class="radio-shell">
 
-    </section>
+        <div class="console-top">
 
-    <section class="station-info">
-      <h2>Welcome to Stevie's Chill Radio</h2>
+            <span class="broadcast-label">
+                STEVIE'S PERSONAL BROADCAST
+            </span>
 
-      <p>
-        A hand-picked collection of chill music for working,
-        gaming, thinking, reading, creating, or just hanging out.
-      </p>
-    </section>
+            <span id="station-clock">
+                --:--
+            </span>
 
-  </main>
+        </div>
 
-  <footer>
-    <p>Stevie's Chill Radio • Broadcasting from somewhere chill</p>
-  </footer>
 
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script src="script.js"></script>
+        <section class="radio-grid">
+
+            <!-- VIDEO SIDE -->
+
+            <div class="video-side">
+
+                <div class="screen-frame">
+
+                    <div id="player"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- NOW PLAYING SIDE -->
+
+            <div class="now-playing-panel">
+
+                <p class="eyebrow">
+                    NOW PLAYING
+                </p>
+
+                <h2 id="track-title">
+                    Tuning in...
+                </h2>
+
+                <p id="track-artist">
+                    Stevie's Chill Radio
+                </p>
+
+
+                <div class="equalizer" id="equalizer">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+
+                <div class="controls">
+
+                    <button id="previous-button">
+                        ◀ PREVIOUS
+                    </button>
+
+                    <button id="next-button">
+                        NEXT ▶
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="lower-console">
+
+            <div class="station-message">
+
+                <p class="eyebrow">
+                    STEVIE'S NOTE
+                </p>
+
+                <p class="message-text">
+                    Lock in. Or don't. It's chill.
+                </p>
+
+            </div>
+
+
+            <div class="signal">
+
+                <span class="signal-dot"></span>
+
+                SIGNAL ONLINE
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            STEVIE'S CHILL RADIO
+            <span>•</span>
+            EST. 2026
+        </p>
+
+    </footer>
+
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
