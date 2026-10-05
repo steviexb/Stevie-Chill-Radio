@@ -32,10 +32,21 @@ const songs = [
 // ==========================================
 
 const stationNotes = [
-    "Lock in. Or don't. It's chill.",
-    "Good music. That's the whole operation.",
-    "You are currently extremely on air.",
-    "Another one from Stevie's collection."
+    "It's not over. We're just getting started.",
+    "Whatever you manage to get done today is enough.",
+    "I promise I won't give up if you don't.",
+    "Let's slow down a bit. You've got this.",
+    "Don't forget to check in with your breathing.",
+    "Mindfulness exercise: Check your surroundings. Name 5 things you can see.",
+    "You're not going in circles. You're learning something new every time.",
+    "Lock in. Or don't. Whichever you need right now.",
+    "Nothing really matters, and that's the beauty of it.",
+    "\"My journey only ends when I stop running.\" — Sonic",
+    "You deserve to see how far you can go.",
+    "Our minds tell us anxious lies. Everything will be okay.",
+    "Become more you every day.",
+    "Being brave doesn't mean I'm not scared; it just means I won't stop.",
+    "When the rain starts pouring down, let it wash your soul anew."
 ];
 
 
